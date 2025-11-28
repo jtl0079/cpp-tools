@@ -7,4 +7,4 @@
 // ============================================
 
 #include "openmp_filler.h"
-#include "openmp_setter.h"
+#include "openmp_getter.h"
