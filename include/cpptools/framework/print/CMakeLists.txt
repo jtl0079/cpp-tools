@@ -1,48 +1,56 @@
-# ..\libs\cpptools\include\cpptools\framework\openmp\CMakeLists.txt
-# ============ framework_openmp 模块 ============
-project(framework_openmp)
+# ..\libs\cpptools\include\cpptools\framework\print\CMakeLists.txt
+# ============ framework_print 模块 ============
+cmake_minimum_required(VERSION 3.15)
+project(framework_print)
 
 
 
 # ================= 源文件 =================
 # 自动收集 openmp 模块下所有 cpp 文件
 file(GLOB OPENMP_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../src/framework/openmp/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../src/framework/print/*.cpp
 )
 
-add_library(framework_openmp STATIC ${OPENMP_SOURCES})
+# 判断源文件数量
+list(LENGTH OPENMP_SOURCES SRC_COUNT)
 
+if(SRC_COUNT EQUAL 0)
+    # 🟦 完全合法：此模块是 header-only
+    message(STATUS "[cpptools::framework::print] No .cpp files found — building as INTERFACE header-only module.")
 
+    add_library(framework_openmp INTERFACE)
 
-# ================= OpenMP 依赖 =================
-find_package(OpenMP REQUIRED)
+    target_include_directories(framework_openmp
+        INTERFACE
+            ${CPPTOOLS_INCLUDE_ROOT}
+    )
 
-target_link_libraries(framework_openmp PUBLIC OpenMP::OpenMP_CXX )
+else()
+    # 🟩 有 .cpp，正常构建 static library
+    message(STATUS "[cpptools::framework::print] Found ${SRC_COUNT} source file(s) — building as STATIC library.")
 
+    add_library(framework_openmp STATIC ${OPENMP_SOURCES})
 
+    target_include_directories(framework_openmp
+        PUBLIC
+            ${CPPTOOLS_INCLUDE_ROOT}
+    )
 
-# ================== 头文件路径 ==================
-set(CPTOOLS_INCLUDE_ROOT
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../..
-)
+endif()
 
-target_include_directories(framework_openmp
-    PUBLIC
-        ${CPTOOLS_INCLUDE_ROOT}
-)
 
 
 
 # ==================================================
-# 自动生成聚合头 openmp.h
+# 自动生成聚合头 print.h
 # ==================================================
 
-file(GLOB OPENMP_HEADERS
+file(GLOB PRINT_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/*.h
 )
 
 set(AGG_HEADER
-    ${CMAKE_CURRENT_SOURCE_DIR}/openmp.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/print.h
 )
 
 file(WRITE ${AGG_HEADER}
@@ -50,15 +58,15 @@ file(WRITE ${AGG_HEADER}
 
 // ============================================
 // Auto Generated Header
-// Module : cpptools::framework::openmp
+// Module : cpptools::framework::print
 // Do not edit manually
 // ============================================
 
 ")
 
-foreach(h ${OPENMP_HEADERS})
+foreach(h ${PRINT_HEADERS})
     get_filename_component(name ${h} NAME)
-    if(NOT name STREQUAL "openmp.h")
+    if(NOT name STREQUAL "print.h")
         file(APPEND ${AGG_HEADER} "#include \"${name}\"\n")
     endif()
 endforeach()

@@ -6,7 +6,7 @@
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $BuildDir = "$Root/build"
 
-Write-Host "== Updating OpenMP aggregate header ==" -ForegroundColor Cyan
+Write-Host "== Updating print aggregate header ==" -ForegroundColor Cyan
 
 if (!(Test-Path $BuildDir)) {
     Write-Host "Build directory not found. Creating..." -ForegroundColor Yellow
@@ -18,4 +18,4 @@ Set-Location $BuildDir
 Write-Host "Running CMake configure to regenerate headers..." -ForegroundColor Green
 cmake ..
 
-Write-Host "Done ✅ openmp.h updated" -ForegroundColor Green
+Write-Host "Done ✅ print.h updated" -ForegroundColor Green
