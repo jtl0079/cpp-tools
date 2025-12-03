@@ -9,7 +9,7 @@ namespace cpptools::framework::math::backend::openmp {
 	// 泛型函数：对 vector 中的所有元素进行求和
 	// T 必须支持默认构造 T{} 以及运算符 +=
 	template<typename T>
-	T getSum(const std::vector<T>& v)
+	T get_sum(const std::vector<T>& v)
 	{
 		using namespace std;
 
@@ -27,7 +27,7 @@ namespace cpptools::framework::math::backend::openmp {
 
 
 	template<typename T, size_t N>
-	T getSum(T(&t)[N]) {
+	T get_sum(T(&t)[N]) {
 		T sum{};
 
 #pragma omp parallel for reduction(+:sum) schedule(static)
