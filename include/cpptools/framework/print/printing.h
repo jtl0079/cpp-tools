@@ -16,6 +16,17 @@ namespace cpptools::framework::print {
 		cout << t[i];
 	}
 
+	template<typename Container>
+	void print(const Container& c, const std::string& delimiter = ", ") {
+		using namespace std;
+		size_t N = c.size();
+		if (N == 0) return;
+
+		for (size_t i = 0; i < N - 1; ++i)
+			cout << c[i] << delimiter;
+		cout << c[N - 1];
+	}
+
 
 	template<typename T, size_t N, size_t N2>
 	void print(T(&t)[N][N2], std::string delimiter = ", ") {
@@ -36,6 +47,8 @@ namespace cpptools::framework::print {
 		cout << t[i][i2];
 
 	}
+
+
 
 }
 
