@@ -6,7 +6,9 @@
 #include <cpptools/framework/copy.hpp>
 #include <cpptools/framework/print.hpp>
 #include <cpptools/framework/filler.hpp>
-#include <cpptools/framework/math/backend/serial/serial.hpp>
+#include <cpptools/framework/math/backend/serial/multiply_matrix_vector.h>
+#include <cpptools/framework/math/backend/serial/transpose.h>
+#include <cpptools/framework/filler/backend/serial.hpp>
 
 namespace cpptools::framework::math::backend::serial {
 
@@ -22,41 +24,7 @@ namespace cpptools::framework::math::backend::serial {
 		return std::sqrt(get_dot(first, vecs...));
 	}
 
-
-
-	template<typename T, size_t M, size_t N>
-	std::array<T, M> getMultiplyMatrixVector(const T(&matrix)[M][N], const  T(&vec)[N]) {
-		using namespace std;
-		array<T, M> y{};  // 结果长度 M
-		for (size_t i = 0; i < M; ++i) {
-			T tmp{};
-			for (size_t j = 0; j < N; ++j) {
-				tmp += matrix[i][j] * vec[j];
-			}
-			y[i] = tmp;
-		}
-		return y;
-	}
-
-
-	template<typename T, size_t M, size_t N, size_t P>
-	void multiplyMatrix(T(&A)[M][N], T(&B)[N][P], T(&result)[M][P]) {
-		// clean
-		for (size_t i = 0; i < M; ++i)
-			for (size_t j = 0; j < P; ++j)
-				result[i][j] = 0;
-
-		// input 
-		for (size_t i = 0; i < M; ++i) {
-			for (size_t k = 0; k < N; ++k) {
-				T v = A[i][k];
-				for (size_t j = 0; j < P; ++j) {
-					result[i][j] += v * B[k][j];
-				}
-			}
-		}
-	}
-
+	 
 
 	// -----------------------------
 	// Modified Gram-Schmidt QR Decomposition
@@ -156,9 +124,11 @@ namespace cpptools::framework::math::backend::serial {
 	}
 	*/
 
+	// Ax = b
 	template<typename T, size_t M, size_t N>
 	void solveByQR(const T(&A)[M][N], const T(&b)[M], T (&result_a)[N])
 	{
+		using namespace cpptools::framework::filler::backend::serial;
 		T Q[M][N];
 		T R[N][N];
 
@@ -167,7 +137,12 @@ namespace cpptools::framework::math::backend::serial {
 
 		// 2. Compute y = Qᵀ * b
 		T Qt[M][N];
+		T y[N];
+		//fill_zero(y);
 		transpose(Q, Qt);
+		multiply_matrix_vector(Qt, b, y);
+		
+		
 
 	}
 

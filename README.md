@@ -14,7 +14,9 @@ project/                                    # 顶层仓库根目录
 ├── third_party/                            # 第三方库 / 子模块 / vendor（可选：或用 submodule） # 管理外部依赖
 ├── include/                                # 对外统一头文件入口（公开 API）                   # 保持对外稳定 ABI
 │   └── cpptools/                           # 把所有对外头按照项目/命名空间组织，避免全局冲突
-│       ├── cpptools.h                      # 顶层 umbrella header（仅用于简易引用）           # 可选
+│       ├── cpptools.h                      # 顶层 umbrella header（仅用于简易引用）    
+│       ├── core/
+│       │   └── traits/
 │       ├── framework/
 │       │   ├── openmp/
 │       │   │   ├── openmp.h                # 对外宏/配置/简单 API（不要放实现）              # header-only: 小心 inline
