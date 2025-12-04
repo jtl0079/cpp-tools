@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include <vector>
 #include <array>
 #include <type_traits>

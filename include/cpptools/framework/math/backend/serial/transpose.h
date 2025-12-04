@@ -1,8 +1,9 @@
 #pragma once
 
 
-namespace cpptools::framework::math::backend::serial {
 
+namespace cpptools::framework::math::backend::serial {
+	/*
 	template<size_t M, size_t N>
 	int(*transpose(const int(&A)[M][N]))[M]
 		{
@@ -12,10 +13,10 @@ namespace cpptools::framework::math::backend::serial {
 					B[j][i] = A[i][j];
 			return B;
 		}
+		*/
 
-
-		template<typename T, size_t M, size_t N>
-	void transpose(const T (&A)[M][N], T (&dest)[N][M]) {
+	template<typename T, size_t M, size_t N>
+	void transpose(const T(&A)[M][N], T(&dest)[N][M]) {
 		for (size_t i = 0; i < M; ++i)
 			for (size_t j = 0; j < N; ++j)
 				dest[j][i] = A[i][j];
@@ -23,4 +24,3 @@ namespace cpptools::framework::math::backend::serial {
 
 
 }
-

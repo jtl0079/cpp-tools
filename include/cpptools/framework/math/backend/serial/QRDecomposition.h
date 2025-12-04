@@ -2,32 +2,24 @@
 
 #include <array>
 #include <vector>
+#include <cmath>
 #include <cpptools/framework/copy.hpp>
 #include <cpptools/framework/print.hpp>
 #include <cpptools/framework/filler.hpp>
+#include <cpptools/framework/math/backend/serial/serial.hpp>
 
 namespace cpptools::framework::math::backend::serial {
 
 
+	// 单向量 L2 Norm（正确）
+	template<typename T, size_t N>
+	double getL2Norm(const T(&vec)[N]) {
+		return std::sqrt(get_dot(vec, vec));   // dot(vec, vec)
+	}
 
 	template<typename T, size_t N, typename... Vecs>
 	double getL2Norm(const T(&first)[N], const Vecs(&... vecs)[N]) {
 		return std::sqrt(get_dot(first, vecs...));
-	}
-
-
-
-
-	// Frobenius 范数 ||A-B||_F
-	template<typename T, size_t M, size_t N>
-	double getFrobeniusNormDistance(T(&matrixA)[M][N], T(&matrixB)[M][N]) {
-		double distance = 0.0;
-		for (int i = 0; i < M; i++)
-			for (int j = 0; j < N; j++) {
-				double d = double(matrixA[i][j]) - double(matrixB[i][j]);
-				distance += d * d;
-			}
-		return sqrt(distance);
 	}
 
 
@@ -132,6 +124,52 @@ namespace cpptools::framework::math::backend::serial {
 		return x;
 	}
 
+
+
+	// Ax = b
+	// return x
+
+	/*
+	template<typename T, size_t M, size_t N>
+	std::array<T, N> solveByQR(const T(&A)[M][N], const T(&b)[M])
+	{
+		T Q[M][N];
+		T R[N][N];
+
+		// 1. QR decomposition
+		qrdecomposition_mgs(A, Q, R);
+
+		// 2. Compute y = Qᵀ * b
+		T Qt[M][N];
+		transpose(Q, Qt); // 你需要写一个 transpose()
+		auto y = multiplyMatrixVector(Qt, b);
+
+		// 3. Solve R x = y
+		std::vector<T> y_vec(y.begin(), y.end());
+		std::vector<std::vector<T>> R_vectorized = R;
+		auto x_vec = get_upper_triangular_back_substitution(R_vectorized, y_vec);
+
+		// 4. return x
+		std::array<T, N> x{};
+		for (size_t i = 0; i < N; i++) x[i] = x_vec[i];
+		return x;
+	}
+	*/
+
+	template<typename T, size_t M, size_t N>
+	void solveByQR(const T(&A)[M][N], const T(&b)[M], T (&result_a)[N])
+	{
+		T Q[M][N];
+		T R[N][N];
+
+		// 1. QR decomposition
+		qrdecomposition_mgs(A, Q, R);
+
+		// 2. Compute y = Qᵀ * b
+		T Qt[M][N];
+		transpose(Q, Qt);
+
+	}
 
 }
 
