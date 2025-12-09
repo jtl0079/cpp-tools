@@ -12,15 +12,15 @@ namespace cpptools::framework::math::backend::openmp {
         const VectorY& y,
         VectorX& x_result
     ) {
-        using cpptools::core::traits::size;
+        namespace traits = cpptools::core::traits;
 
         using T = std::decay_t<decltype(y[0])>;
-        const size_t n = size(R);
+        const size_t n = traits::size(R);
 
         // --- dim check  ---
-        if (size(y) != n)
+        if (traits::size(y) != n)
             throw std::runtime_error("Dimension mismatch: R is n×n but y is not length n");
-        if (size(x_result) != n)
+        if (traits::size(x_result) != n)
             throw std::runtime_error("Dimension mismatch: x length must be n");
 
         // --- 回代 ---

@@ -5,9 +5,9 @@ namespace cpptools::framework::math::backend::serial {
 
 
 	// -----------------------------
-// 上三角回代求解 R x = y
-// return x
-// -----------------------------
+	// 上三角回代求解 R x = y
+	// return x
+	// -----------------------------
 	template<class Matrix, class VectorY, class VectorX>
 	void upper_triangular_back_substitution(
 		const Matrix& R,

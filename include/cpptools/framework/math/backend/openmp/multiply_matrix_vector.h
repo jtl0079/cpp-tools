@@ -2,6 +2,7 @@
 
 #include <omp.h>
 
+#include <cpptools/core/traits.hpp>
 
 namespace cpptools::framework::math::backend::openmp {
 
@@ -13,10 +14,10 @@ namespace cpptools::framework::math::backend::openmp {
     template<class Matrix, class Vector, class Out>
     void multiply_matrix_vector(const Matrix& A, const Vector& x, Out& y)
     {
-        using cpptools::core::traits::size;
+        namespace traits = cpptools::core::traits;
 
-        const int M = static_cast<int>(size(A));     // rows
-        const size_t N = size(A[0]);  // cols
+        const int M = static_cast<int>(traits::size(A));     // rows
+        const size_t N = traits::size(A[0]);  // cols
 
         // y must have at least M elements
         // x must have at least N elements
