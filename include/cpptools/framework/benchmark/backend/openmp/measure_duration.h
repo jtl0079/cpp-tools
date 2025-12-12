@@ -5,6 +5,7 @@
 #include <omp.h>
 #include <type_traits>
 #include <utility>
+#include <chrono>
 
 namespace cpptools::framework::benchmark::backend::openmp {
 

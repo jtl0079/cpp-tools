@@ -14,15 +14,15 @@ namespace cpptools::framework::math::backend::serial {
 		const VectorY& y,
 		VectorX& x
 	) {
-		using cpptools::core::traits::size;
+		namespace traits = cpptools::core::traits;
 
-		const size_t n = size(R);
+		const size_t n = traits::size(R);
 		using T = std::decay_t<decltype(y[0])>;
 
 		// --- Dimension check ---
-		if (size(y) != n)
+		if (traits::size(y) != n)
 			throw std::runtime_error("Dimension mismatch: y length != n");
-		if (size(x) != n)
+		if (traits::size(x) != n)
 			throw std::runtime_error("Dimension mismatch: x length != n");
 
 		// --- Back substitution ---

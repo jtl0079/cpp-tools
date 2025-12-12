@@ -35,12 +35,12 @@ namespace cpptools::framework::math::backend::serial {
 	// result: Q (m x n), R (n x n)
 	// -----------------------------
 	template<class MatA, class MatQ, class MatR>
-	void qrdecomposition_mgs(const MatA& A, MatQ& Q, MatR& R)
+	void decomposition_qr_mgs(const MatA& A, MatQ& Q, MatR& R)
 	{
-		using cpptools::core::traits::size;
+		namespace traits = cpptools::core::traits;
 
-		const size_t M = size(A);
-		const size_t N = size(A[0]);
+		const size_t M = traits::size(A);
+		const size_t N = traits::size(A[0]);
 
 		using Val = std::decay_t<decltype(A[0][0])>;
 		std::vector<std::vector<Val>> U(M, std::vector<Val>(N));
@@ -141,36 +141,6 @@ namespace cpptools::framework::math::backend::serial {
 		return x;
 	}
 
-
-
-
-
-	// -----------------------------
-	// Ax = b
-	// return x
-	// -----------------------------
-
-	template<typename T, size_t M, size_t N>
-	void solveByQR(const T(&A)[M][N], const T(&b)[M], T (&x_result)[N])
-	{
-		using namespace cpptools::framework::filler::backend::serial;
-		T Q[M][N];
-		T R[N][N];
-
-		// 1. QR decomposition
-		qrdecomposition_mgs(A, Q, R);
-
-		// 2. Compute y = Qᵀ * b
-		T Qt[N][M];
-		T y[N];
-		
-		transpose(Q, Qt);
-		multiply_matrix_vector(Qt, b, y);
-		
-		// 3. solve Rx = y
-		upper_triangular_back_substitution(R, y, x_result);
-
-	}
 
 }
 

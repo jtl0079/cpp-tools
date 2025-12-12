@@ -5,12 +5,12 @@
 namespace cpptools::framework::math::backend::openmp {
 
     template<class MatA, class MatQ, class MatR>
-    void qrdecomposition_mgs(const MatA& A, MatQ& Q, MatR& R)
+    void decomposition_qr_mgs(const MatA& A, MatQ& Q, MatR& R)
     {
-        using cpptools::core::traits::size;
+        namespace traits = cpptools::core::traits;
 
-        const int M = static_cast<int>(size(A));
-        const int N = static_cast<int>(size(A[0]));
+        const int M = static_cast<int>(traits::size(A));
+        const int N = static_cast<int>(traits::size(A[0]));
 
         using Val = std::decay_t<decltype(A[0][0])>;
         std::vector<std::vector<Val>> U(M, std::vector<Val>(N));
