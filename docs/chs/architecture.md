@@ -16,7 +16,6 @@ project/                                    # 顶层仓库根目录
 ├── msvc/                      # ⭐ Visual Studio / MSBuild
 │   ├── cpptools.props         # 总入口
 │   ├── modules/
-│   │   ├── sdl2.props
 │   │   ├── openmp.props
 │   │   └── vulkan.props
 │   └── README.md
@@ -45,19 +44,18 @@ project/                                    # 顶层仓库根目录
 ├── src/                                    # 实现文件（对应 include 中的接口）               # 源码集中实现
 │   ├── core/                               # 公共核心库实现（若有）                          # 可选
 │   ├── framework/
-│   │   ├── openmp/
-│   │   │   └── TOpenMP.cpp                  # TOpenMP 实现（并行策略、调度）                  # 放实现
-│   │   └── utils/
-│   │       └── string_utils.cpp             # string_utils 实现                              # 实现文件
+│   │   ├── m1/
+│   │   └── math/
+│   │       └── math_fun_.cpp             # string_utils 实现                              # 实现文件
 │   │
 │   └── modules/
-│       ├── report/
-│       │   ├── domain/                      # domain 层实现（模型方法、领域验证）            # 仅领域逻辑
-│       │   ├── application/                 # 用例层（use-cases / services）                 # 协调 domain 和 infra
-│       │   ├── infrastructure/              # infra 实现（DB / FS / network / adapters）      # 具体适配器
-│       │   └── presentation/                # REST/CLI/GUI handler 实现                      # 绑定到外部接口
-│       ├── m2/
-│       └── m3/
+│       ├── m1/
+│       └── m2/
+│           ├── domain/                      # domain 层实现（模型方法、领域验证）            # 仅领域逻辑
+│           ├── application/                 # 用例层（use-cases / services）                 # 协调 domain 和 infra
+│           ├── infrastructure/              # infra 实现（DB / FS / network / adapters）      # 具体适配器
+│           └── presentation/                # REST/CLI/GUI handler 实现                      # 绑定到外部接口
+│        
 ├── tests/                                  # 测试（单元/集成/端到端）                         # 可选 BUILD_TESTS
 │   ├── unit/
 │   ├── integration/
