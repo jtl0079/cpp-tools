@@ -1,5 +1,5 @@
 # CMakeLists.txt for the cpptools library.
-# Location: C:\Cpp_Files\ProjectTest\ProjectTest\libs\cpptools\
+# Location: C:\..\libs\cpptools\
 cmake_minimum_required(VERSION 3.15)
 project(cpptools LANGUAGES CXX)
 
@@ -29,3 +29,41 @@ generate_recursive_aggregate_headers_to_upper_dir_for_each_level(
     "${CMAKE_CURRENT_LIST_DIR}/include/cpptools"
 )
 
+# --- 定义库 target ---
+add_library(cpptools INTERFACE)
+
+target_include_directories(cpptools
+  INTERFACE
+    ${CMAKE_CURRENT_LIST_DIR}/include
+)
+
+
+# -------- SDL framework（可选） --------
+
+option(CPPTOOLS_ENABLE_SDL "Enable SDL support" OFF)
+
+if(CPPTOOLS_ENABLE_SDL)
+
+  include(cmake/dependencies/sdl.cmake)
+
+  cpptools_resolve_sdl()
+
+  if(TARGET SDL2::SDL2)
+
+    add_library(cpptools_framework_sdl INTERFACE)
+
+    target_link_libraries(cpptools_framework_sdl
+      INTERFACE
+        cpptools
+        SDL2::SDL2
+    )
+
+    target_compile_definitions(cpptools_framework_sdl
+      INTERFACE CPPTOOLS_HAS_SDL
+    )
+
+  else()
+    message(FATAL_ERROR "SDL requested but not available")
+  endif()
+
+endif()

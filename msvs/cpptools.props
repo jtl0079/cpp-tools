@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- =====================
+       Global options
+       ===================== -->
+	<PropertyGroup>
+		<CPPTTOOLS_ROOT Condition="'$(CPPTTOOLS_ROOT)'==''">$(ProjectDir)libs\cpptools</CPPTTOOLS_ROOT>
+		<USE_OPENMP Condition="'$(USE_OPENMP)'==''">false</USE_OPENMP>
+	</PropertyGroup>
+
+	<!-- =====================
+       Public include path
+       ===================== -->
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<AdditionalIncludeDirectories>$(CPPTTOOLS_ROOT)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+		</ClCompile>
+	</ItemDefinitionGroup>
+
+	<!-- =====================
+       Modules
+       ===================== -->
+	<Import Project="modules\openmp.props"
+			Condition="'$(USE_OPENMP)'=='true'" />
+
+</Project>
