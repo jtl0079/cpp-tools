@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
+	<!--  cpptools.props -->
 	<!-- 如果失败返回根目录删除：.vs 和 x64 folder/file -->
 	
 	<ItemDefinitionGroup>
@@ -20,5 +20,10 @@
 		<ClCompile Include="$(ProjectDir)libs\cpptools\src\*\*\*.cpp" />
 
 	</ItemGroup>
+
+	<Import
+    Project="$(CMAKE_BINARY_DIR)\cpptools\msvs\generated\cpptools_binary_root.props"
+    Condition="Exists('$(CMAKE_BINARY_DIR)\cpptools\msvs\generated\cpptools_binary_root.props')" />
+
 
 </Project>

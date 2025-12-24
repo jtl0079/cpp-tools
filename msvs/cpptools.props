@@ -1,35 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-<!-- "C:\...\libs\cpptools\msvs\cpptools.props" -->
 
-	<!-- =====================
-       Global options
-       ===================== -->
-	<PropertyGroup>
-		<CPPTTOOLS_ROOT Condition="'$(CPPTTOOLS_ROOT)'==''">$(ProjectDir)libs\cpptools</CPPTTOOLS_ROOT>
-		<USE_OPENMP Condition="'$(USE_OPENMP)'==''">true</USE_OPENMP>
-		<USE_SDL2 Condition="'$(USE_SDL2)'==''">true</USE_SDL2>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        $(ProjectDir)libs\cpptools\include;
+        $(ProjectDir)libs\cpptools\include\cpptools;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+  </ItemDefinitionGroup>
 
-	</PropertyGroup>
+  <Import
+    Project="$(MSBuildThisFileDirectory)modules\sdl\sdl2\sdl2_cmake.props"
+    Condition="Exists('$(MSBuildThisFileDirectory)modules\sdl\sdl2\sdl2_cmake.props')" />
 
-	<!-- =====================
-       Public include path
-       ===================== -->
-	<ItemDefinitionGroup>
-		<ClCompile>
-			<AdditionalIncludeDirectories>$(CPPTTOOLS_ROOT)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-		</ClCompile>
-	</ItemDefinitionGroup>
-
-	<!-- =====================
-       Modules
-       ===================== -->
-	<Import Project="modules\openmp.props"
-			Condition="'$(USE_OPENMP)'=='true'" />
-	
-	<Import Project="modules\sdl\sdl2\sdl2.props"
-        Condition="'$(USE_SDL2)'=='true'" />
-	
-
+  <Import 
+    Project="$(MSBuildThisFileDirectory)sdl2.runtime.targets" 
+    Condition="Exists('$(MSBuildThisFileDirectory)sdl2.runtime.targets')" />
 
 </Project>

@@ -1,23 +1,15 @@
-function(cpptools_enable_sdl2)
+﻿function(cpptools_enable_sdl2)
   cpptools_resolve_sdl2()
 
-  if(NOT TARGET SDL2::SDL2)
-    message(WARNING "[cpptools] SDL2 requested but unavailable")
-    return()
+  if(NOT TARGET cpptools::sdl2)
+    add_library(cpptools_sdl2 INTERFACE)
+    add_library(cpptools::sdl2 ALIAS cpptools_sdl2)
+
+    target_link_libraries(cpptools_sdl2
+      INTERFACE
+        SDL2::SDL2
+    )
   endif()
 
-  add_library(cpptools_framework_sdl2 INTERFACE)
-
-  target_link_libraries(cpptools_framework_sdl2
-    INTERFACE
-      cpptools
-      SDL2::SDL2
-  )
-
-  target_compile_definitions(cpptools_framework_sdl2
-    INTERFACE
-      CPPTOOLS_HAS_SDL2
-  )
-
-  message(STATUS "[cpptools] cpptools_framework_sdl2 enabled")
+  message(STATUS "[cpptools] cpptools::sdl2 ready")
 endfunction()

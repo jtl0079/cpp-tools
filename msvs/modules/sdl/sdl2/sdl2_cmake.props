@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- "C:\..\libs\cpptools\msvs\modules\sdl\sdl2\sdl2_cmake.props" -->
+  <!-- SDL2 build root -->
+  <PropertyGroup>
+    <SDL2_ITEM_ROOT Condition="'$(SDL2_ITEM_ROOT)'==''">$(MSBuildThisFileDirectory)..\..\..\..\out\build\x64-$(Configuration)\_deps\sdl2-build</SDL2_ITEM_ROOT>
+    <SDL2Root>$(MSBuildThisFileDirectory)libs\cpptools\out\build\x64-$(Configuration)\_deps\sdl2-build</SDL2Root>
+  </PropertyGroup>
+
+  <!-- ================= INCLUDE ================= -->
+<ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+  <ClCompile>
+    <AdditionalIncludeDirectories>
+      $(SDL2_ITEM_ROOT)\include;
+      $(SDL2_ITEM_ROOT)\include-config-debug\SDL2;
+      %(AdditionalIncludeDirectories)
+    </AdditionalIncludeDirectories>
+  </ClCompile>
+</ItemDefinitionGroup>
+
+<ItemDefinitionGroup Condition="'$(Configuration)'!='Debug'">
+  <ClCompile>
+    <AdditionalIncludeDirectories>
+      $(SDL2_ITEM_ROOT)\include;
+      $(SDL2_ITEM_ROOT)\include-config-release\SDL2;
+      %(AdditionalIncludeDirectories)
+    </AdditionalIncludeDirectories>
+  </ClCompile>
+</ItemDefinitionGroup>
+
+
+
+  <!-- ================= LINK ================= -->
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories>
+        $(SDL2_ITEM_ROOT);
+        %(AdditionalLibraryDirectories)
+      </AdditionalLibraryDirectories>
+
+      <AdditionalDependencies Condition="'$(Configuration)'=='Debug'">
+        SDL2d.lib;
+        SDL2maind.lib;
+        %(AdditionalDependencies)
+      </AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- ================= RUNTIME DLL ================= -->
+  <Target Name="CopySDL2Runtime"
+          AfterTargets="Build"
+          Condition="'$(Configuration)'=='Debug'">
+
+    <Copy
+      SourceFiles="$(SDL2_ITEM_ROOT)\SDL2d.dll"
+      DestinationFolder="$(OutDir)"
+      SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

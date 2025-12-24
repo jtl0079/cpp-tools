@@ -37,6 +37,11 @@ target_include_directories(cpptools
     ${CMAKE_CURRENT_LIST_DIR}/include
 )
 
+# binary root 必须最先导出
+include(cmake/msvs/cpptools_export_binary_root_props.cmake)
+cpptools_export_binary_root_props()
+
+
 
 # -------- SDL framework（可选） --------
 
@@ -46,3 +51,5 @@ if(CPPTOOLS_ENABLE_SDL2)
   include(cmake/dependencies/sdl/sdl2/sdl2.cmake)
   cpptools_enable_sdl2()
 endif()
+
+
