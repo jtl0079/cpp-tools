@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- sdl2_auto.props -->
+
+	<Import Condition="
+        '$(USE_SDL2)'=='true' and
+        (
+            '$(SDL2_PROVIDER)'=='cmake' or
+            ('$(SDL2_PROVIDER)'=='auto' and
+            Exists('$(CPPTTOOLS_ROOT)\msvs\generated\sdl2_cmake.props'))
+        )
+    "
+    Project="$(CPPTTOOLS_ROOT)\msvs\generated\sdl2_cmake.props" />
+
+	<!-- 1️⃣ vcpkg -->
+	<Import Condition="'$(VCPKG_ROOT)'!='' and 
+			    Exists('$(VCPKG_ROOT)\installed\$(VCPKG_TARGET_TRIPLET)\include\SDL2\SDL.h')"
+			Project="sdl2_vcpkg.props" />
+
+	<!-- 2️⃣ system -->
+	<Import Condition="(
+                      '$(VCPKG_ROOT)'=='' or
+                      !Exists('$(VCPKG_ROOT)\installed\$(VCPKG_TARGET_TRIPLET)\include\SDL2\SDL.h')
+                    )
+                    and
+                    '$(SDL2_ROOT)'!=''"
+			Project="sdl2_system.props" />
+
+	<!-- 3️⃣ 都没有 → Warning -->
+	<Target Name="WarnSDL2Unavailable"
+          BeforeTargets="ClCompile"
+          Condition="
+            '$(USE_SDL2)'=='true' and
+            '$(SDL2_PROVIDER)'=='auto' and
+            !Exists('$(CPPTTOOLS_ROOT)\msvs\generated\sdl2_cmake.props') and
+            '$(VCPKG_ROOT)'=='' and
+            '$(SDL2_ROOT)'==''
+          ">
+		<Warning Text="SDL2 not found (cmake/vcpkg/system). SDL2 support disabled." />
+	</Target>
+
+</Project>

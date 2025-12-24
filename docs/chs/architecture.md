@@ -36,13 +36,13 @@ project/                                    # 顶层仓库根目录
 │           ├── m1/
 │           └── math/
 │               ├── domain/
-│               │   ├── model/               # 实体定义（struct/class，尽量 POD 或小方法）  # 领域模型
-│               │   ├── mapper/              # DTO <-> Domain 转换声明                         # 解耦边界
-│               │   └── service/             # 领域服务接口声明（不依赖 infra）               # 纯契约
-│               ├── interface/               # repository / api 接口声明（契约层）            # 明确为契约
-│               └── presentation/            # view model / serializer 的对外声明             # 展示层契约
-├── src/                                    # 实现文件（对应 include 中的接口）               # 源码集中实现
-│   ├── core/                               # 公共核心库实现（若有）                          # 可选
+│               │   ├── model/                  # 实体定义（struct/class，尽量 POD 或小方法）  # 领域模型
+│               │   ├── mapper/                 # DTO <-> Domain 转换声明                         # 解耦边界
+│               │   └── service/                # 领域服务接口声明（不依赖 infra）               # 纯契约
+│               ├── interface/                  # repository / api 接口声明（契约层）            # 明确为契约
+│               └── presentation/               # view model / serializer 的对外声明             # 展示层契约
+├── src/                                        # 实现文件（对应 include 中的接口）               # 源码集中实现
+│   ├── core/                                   # 公共核心库实现（若有）                          # 可选
 │   ├── framework/
 │   │   ├── m1/
 │   │   └── math/

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- =========
+       SDL2_ROOT must be provided
+       ========= -->
+	<Target Name="CheckSDL2System"
+			BeforeTargets="ClCompile"
+		    Condition="'$(SDL2_PROVIDER)'=='system' and '$(SDL2_ROOT)'==''">
+		<Error Text="SDL2_PROVIDER=system but SDL2_ROOT is not set." />
+	</Target>
+
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<AdditionalIncludeDirectories>
+				$(SDL2_ROOT)\include;
+				%(AdditionalIncludeDirectories)
+			</AdditionalIncludeDirectories>
+		</ClCompile>
+
+
+		<Link>
+			<AdditionalLibraryDirectories>
+				$(SDL2_ROOT)\lib;
+				%(AdditionalLibraryDirectories)
+			</AdditionalLibraryDirectories>
+			<AdditionalDependencies>
+				SDL2.lib;SDL2main.lib;%(AdditionalDependencies)
+			</AdditionalDependencies>
+		</Link>
+	</ItemDefinitionGroup>
+
+</Project>

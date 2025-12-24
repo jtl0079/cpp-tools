@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- sdl2.props -->
+
+	<PropertyGroup>
+		<USE_SDL2 Condition="'$(USE_SDL2)'==''">true</USE_SDL2>
+
+		<!-- auto | vcpkg | system | sdk -->
+		<SDL2_PROVIDER Condition="'$(SDL2_PROVIDER)'==''">auto</SDL2_PROVIDER>
+	</PropertyGroup>
+
+	<Import Condition="'$(USE_SDL2)'=='true' and '$(SDL2_PROVIDER)'=='auto'"
+          Project="sdl2_auto.props" />
+
+	<Import Condition="'$(USE_SDL2)'=='true' and '$(SDL2_PROVIDER)'=='vcpkg'"
+			Project="sdl2_vcpkg.props" />
+
+	<Import Condition="'$(USE_SDL2)'=='true' and '$(SDL2_PROVIDER)'=='system'"
+			Project="sdl2_system.props" />
+
+	<Import Condition="'$(USE_SDL2)'=='true' and '$(SDL2_PROVIDER)'=='cmake'"
+			Project="sdl2_cmake.props" />
+
+</Project>

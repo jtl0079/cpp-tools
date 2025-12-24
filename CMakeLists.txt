@@ -40,30 +40,9 @@ target_include_directories(cpptools
 
 # -------- SDL framework（可选） --------
 
-option(CPPTOOLS_ENABLE_SDL "Enable SDL support" OFF)
+option(CPPTOOLS_ENABLE_SDL2 "Enable SDL2 support" ON)
 
-if(CPPTOOLS_ENABLE_SDL)
-
-  include(cmake/dependencies/sdl.cmake)
-
-  cpptools_resolve_sdl()
-
-  if(TARGET SDL2::SDL2)
-
-    add_library(cpptools_framework_sdl INTERFACE)
-
-    target_link_libraries(cpptools_framework_sdl
-      INTERFACE
-        cpptools
-        SDL2::SDL2
-    )
-
-    target_compile_definitions(cpptools_framework_sdl
-      INTERFACE CPPTOOLS_HAS_SDL
-    )
-
-  else()
-    message(FATAL_ERROR "SDL requested but not available")
-  endif()
-
+if(CPPTOOLS_ENABLE_SDL2)
+  include(cmake/dependencies/sdl/sdl2/sdl2.cmake)
+  cpptools_enable_sdl2()
 endif()
