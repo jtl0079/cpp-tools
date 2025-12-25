@@ -78,3 +78,40 @@ project/                                    # 顶层仓库根目录
     └── win32/
 
 ```
+
+
+
+# modules template
+```asgl
+module/
+├── include/                    # 对外 API（public headers）
+│
+├── backend/                    # 执行后端
+│   ├── serial/
+│   ├── openmp/
+│   └── cuda/
+│
+├── dispatch/                   # 后端选择 / 路由
+├── tuning/                     # 参数 / auto-tuning
+├── benchmark/                  # 性能测试
+├── test/
+│
+├── domain/                     # 纯业务
+│   ├── model/
+│   ├── service/
+│   └── repository/             # interface only
+│
+├── application/                # 用例 / orchestration
+│
+├── infrastructure/             # 系统实现
+│   ├── repository/
+│   ├── datasource/
+│   ├── mapper/
+│   └── config/
+│
+└── presentation/               # 外部交互
+    ├── api/                    # HTTP / RPC
+    ├── cli/
+    └── gui/
+
+```
