@@ -45,11 +45,11 @@ cpptools_export_binary_root_props()
 
 # -------- SDL framework（可选） --------
 
-option(CPPTOOLS_ENABLE_SDL2 "Enable SDL2 support" ON)
+option(CPPTOOLS_ENABLE_SDL3 "Enable SDL3 support" ON)
 
-if(CPPTOOLS_ENABLE_SDL2)
-  include(cmake/dependencies/sdl/sdl2/sdl2.cmake)
-  cpptools_enable_sdl2()
+if(CPPTOOLS_ENABLE_SDL3)
+  include(cmake/dependencies/sdl/sdl3/sdl3.cmake)
+  cpptools_enable_sdl3()
 endif()
 
 
