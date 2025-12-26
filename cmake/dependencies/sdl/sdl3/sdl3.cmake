@@ -8,7 +8,7 @@ set(SDL3_SOURCE_GIT_REPOSITORY
 )
 
 set(SDL3_MIRROR_GIT_REPOSITORY
-    "https://github.com/org-foundation/mirrors-sdl2.git"
+    "https://github.com/org-foundation/mirrors_sdl.git"
     CACHE STRING "SDL3 mirror git repository"
 )
 

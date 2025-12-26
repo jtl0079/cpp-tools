@@ -1,7 +1,10 @@
 # CMakeLists.txt for the cpptools library.
 # Location: C:\..\libs\cpptools\
-cmake_minimum_required(VERSION 3.15)
-project(cpptools LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.28)
+project(cpptools 
+    VERSION 0.1.0
+    LANGUAGES CXX
+)
 
 message(STATUS "TOP LEVEL CMake Loaded")
 
@@ -53,3 +56,9 @@ if(CPPTOOLS_ENABLE_SDL3)
 endif()
 
 
+option(CPPTOOLS_ENABLE_FFMPEG "Enable FFmpeg support" ON)
+
+if(CPPTOOLS_ENABLE_FFMPEG)
+  include(cmake/dependencies/ffmpeg/ffmpeg.cmake)
+  #cpptools_enable_ffmpeg()
+endif()

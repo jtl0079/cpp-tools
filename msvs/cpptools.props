@@ -6,8 +6,8 @@
 	<ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>
-        $(ProjectDir)libs\cpptools\include;
-        $(ProjectDir)libs\cpptools\include\cpptools;
+        $(MSBuildThisFileDirectory)\..\include;
+        $(MSBuildThisFileDirectory)\..\include\cpptools;
         %(AdditionalIncludeDirectories)
       </AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
@@ -19,8 +19,8 @@
 	  Project="$(MSBuildThisFileDirectory)modules\sdl\sdl3\sdl3_cmake.props"
 	  Condition="Exists('$(MSBuildThisFileDirectory)modules\sdl\sdl3\sdl3_cmake.props')" />
 
-	<Import 
-      Project="$(MSBuildThisFileDirectory)sdl2.runtime.targets" 
-      Condition="Exists('$(MSBuildThisFileDirectory)sdl2.runtime.targets')" />
+	<Import
+      Project="$(MSBuildThisFileDirectory)modules\ffmpeg\ffmpeg.props"
+      Condition="Exists('$(MSBuildThisFileDirectory)modules\ffmpeg\ffmpeg.props')" />
 
 </Project>
