@@ -17,6 +17,5 @@ set(SDL3_GIT_TAG
     CACHE STRING "SDL3 git tag"
 )
 
-include(${CMAKE_CURRENT_LIST_DIR}/cpptools_resolve_sdl3.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/cpptools_enable_sdl3.cmake)
 

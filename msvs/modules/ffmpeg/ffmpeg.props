@@ -1,37 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <!-- ===== vcpkg root (可被外部覆盖) ===== -->
-  <PropertyGroup>
-    <VcpkgRoot Condition="'$(VcpkgRoot)'==''">C:\vcpkg</VcpkgRoot>
-    <VcpkgTriplet Condition="'$(VcpkgTriplet)'==''">x64-windows-static</VcpkgTriplet>
-  </PropertyGroup>
+	<!-- ===== vcpkg root (可被外部覆盖) ===== -->
+	<PropertyGroup>
+		<VcpkgRoot Condition="'$(VcpkgRoot)'==''">C:\vcpkg</VcpkgRoot>
+		<VcpkgTriplet Condition="'$(VcpkgTriplet)'==''">x64-windows-static</VcpkgTriplet>
+	</PropertyGroup>
 
-  <!-- ===== Include ===== -->
-  <ItemDefinitionGroup>
-    <ClCompile>
-      <AdditionalIncludeDirectories>
-        $(VcpkgRoot)\installed\$(VcpkgTriplet)\include;
-        %(AdditionalIncludeDirectories)
-      </AdditionalIncludeDirectories>
-    </ClCompile>
+	<!-- ===== Include ===== -->
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<AdditionalIncludeDirectories>
+				$(VcpkgRoot)\installed\$(VcpkgTriplet)\include;
+				%(AdditionalIncludeDirectories)
+			</AdditionalIncludeDirectories>
+		</ClCompile>
 
-    <!-- ===== Link ===== -->
-    <Link>
-      <AdditionalLibraryDirectories>
-        $(VcpkgRoot)\installed\$(VcpkgTriplet)\lib;
-        %(AdditionalLibraryDirectories)
-      </AdditionalLibraryDirectories>
+		<!-- ===== Link ===== -->
+		<Link>
+			<AdditionalLibraryDirectories>
+				$(VcpkgRoot)\installed\$(VcpkgTriplet)\lib;
+				%(AdditionalLibraryDirectories)
+			</AdditionalLibraryDirectories>
 
-      <AdditionalDependencies>
-        avcodec.lib;
-        avformat.lib;
-        avutil.lib;
-        swscale.lib;
-        swresample.lib;
-        %(AdditionalDependencies)
-      </AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
+			<AdditionalDependencies>
+				avcodec.lib;
+				avformat.lib;
+				avutil.lib;
+				swscale.lib;
+				swresample.lib;
+				<!-- Windows 系统库 -->
+				strmiids.lib;
+				mf.lib;
+				mfplat.lib;
+				mfuuid.lib;
+				wmcodecdspuuid.lib;
+				ws2_32.lib;
+				secur32.lib;
+				bcrypt.lib;
+				shlwapi.lib;
+				vfw32.lib;
+
+				%(AdditionalDependencies)
+			</AdditionalDependencies>
+		</Link>
+	</ItemDefinitionGroup>
 
 </Project>

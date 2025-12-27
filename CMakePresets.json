@@ -1,0 +1,37 @@
+{
+  "version": 6,
+
+  "configurePresets": [
+    {
+      "name": "x64-dynamic",
+      "generator": "Ninja",
+      "binaryDir": "out/build/x64-dynamic",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_TOOLCHAIN_FILE": "C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_TARGET_TRIPLET": "x64-windows"
+      }
+    },
+    {
+      "name": "x64-static",
+      "generator": "Ninja",
+      "binaryDir": "out/build/x64-static",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_TOOLCHAIN_FILE": "C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_TARGET_TRIPLET": "x64-windows-static"
+      }
+    }
+  ],
+
+  "buildPresets": [
+    {
+      "name": "x64-dynamic",
+      "configurePreset": "x64-dynamic"
+    },
+    {
+      "name": "x64-static",
+      "configurePreset": "x64-static"
+    }
+  ]
+}
